@@ -103,8 +103,6 @@ public abstract class AtomicDesc {
     lateinit var atomicOp: AtomicOp<*> // the reference to parent atomicOp, init when AtomicOp is created
     abstract fun prepare(op: AtomicOp<*>): Any? // returns `null` if prepared successfully
     abstract fun complete(op: AtomicOp<*>, failure: Any?) // decision == null if success
-
-    override fun toString(): String = "$classSimpleName@$hexAddress(atomicOp=$atomicOp)" // for debug
 }
 
 /**

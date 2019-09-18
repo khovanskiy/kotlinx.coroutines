@@ -1080,10 +1080,6 @@ public final class kotlinx/coroutines/selects/SelectKt {
 	public static final fun select (Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
-public synthetic class kotlinx/coroutines/selects/SelectKtSelectOpSequenceNumberRefVolatile {
-	public fun <init> (J)V
-}
-
 public final class kotlinx/coroutines/selects/SelectUnbiasedKt {
 	public static final fun selectUnbiased (Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }

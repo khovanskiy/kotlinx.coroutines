@@ -205,7 +205,14 @@ private val UNDECIDED: Any = Symbol("UNDECIDED")
 private val RESUMED: Any = Symbol("RESUMED")
 
 // Global counter of all atomic select operations for their deadlock resolution
-private val selectOpSequenceNumber = atomic(1L)
+// The separate internal class is work-around for Atomicfu's current implementation that creates public classes
+// for static atomics
+internal class SeqNumber {
+    private val number = atomic(1L)
+    fun next() = number.incrementAndGet()
+}
+
+private val selectOpSequenceNumber = SeqNumber()
 
 @PublishedApi
 internal class SelectBuilderImpl<in R>(
@@ -541,7 +548,7 @@ internal class SelectBuilderImpl<in R>(
         @JvmField val desc: AtomicDesc
     ) : AtomicOp<Any?>() {
         // all select operations are totally ordered by their creating time using selectOpSequenceNumber
-        override val opSequence = selectOpSequenceNumber.getAndIncrement()
+        override val opSequence = selectOpSequenceNumber.next()
 
         init {
             desc.atomicOp = this
